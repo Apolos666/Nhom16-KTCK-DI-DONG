@@ -87,7 +87,6 @@ public class TTCaNhanActivity extends AppCompatActivity {
             if (ten.isEmpty() || mssv.isEmpty() || lop.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
             } else {
-                thanhVienList.add(new ThongTinCN(ten, mssv, lop, R.drawable.default_avatar));
                 adapter.notifyItemInserted(thanhVienList.size() - 1);
                 Toast.makeText(this, "Thêm thành viên thành công!", Toast.LENGTH_SHORT).show();
             }

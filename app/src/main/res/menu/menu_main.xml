@@ -3,6 +3,5 @@
     <item
         android:id="@+id/menu_add"
         android:title="Thêm thành viên"
-        android:icon="@drawable/ic_add"
         />
 </menu>

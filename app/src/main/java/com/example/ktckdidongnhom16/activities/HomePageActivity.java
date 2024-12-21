@@ -1,4 +1,4 @@
-package com.example.appchiasecongthucnauan.activities;
+package com.example.ktckdidongnhom16.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,8 +28,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomePageActivity extends AppCompatActivity implements PostAdapter.OnPostClickListener {
 
@@ -55,20 +53,13 @@ public class HomePageActivity extends AppCompatActivity implements PostAdapter.O
         postAdapter = new PostAdapter(this, postList, this);
         recyclerView.setAdapter(postAdapter);
 
+
         // Initialize navigation
         initializeNavigation();
 
         ImageView addRecipe = findViewById(R.id.add_recipe);
-        addRecipe.setOnClickListener(v -> {
-            Intent intent = new Intent(HomePageActivity.this, CreateRecipeActivity.class);
-            startActivity(intent);
-        });
 
         EditText searchEditText = findViewById(R.id.search_bar);
-        searchEditText.setOnClickListener(v -> {
-            Intent intent = new Intent(HomePageActivity.this, SearchActivity.class);
-            startActivity(intent);
-        });
 
         // Khởi tạo Retrofit
         apiService = RetrofitClient.getInstance().getApiService();
@@ -89,10 +80,8 @@ public class HomePageActivity extends AppCompatActivity implements PostAdapter.O
                 if (itemId == R.id.navigation_home) {
                     return true;
                 } else if (itemId == R.id.navigation_explorer) {
-                    startActivity(new Intent(HomePageActivity.this, ExploreActivity.class));
                     return true;
                 } else if (itemId == R.id.navigation_profile) {
-                    startActivity(new Intent(HomePageActivity.this, SettingsActivity.class));
                     return true;
                 }
                 return false;
@@ -109,11 +98,6 @@ public class HomePageActivity extends AppCompatActivity implements PostAdapter.O
         fetchRecipes();
     }
 
-    @Override
-    public void onPostClick(String recipeId) {
-        RecipeDetailActivity.start(this, recipeId);
-    }
-
     private void fetchRecipes() {
         Call<List<RecipeDto>> call = apiService.getRecipes();
         call.enqueue(new Callback<List<RecipeDto>>() {
@@ -126,7 +110,7 @@ public class HomePageActivity extends AppCompatActivity implements PostAdapter.O
                         Log.d("HomePageActivity", "Công thức: " + recipe.getTitle() +
                                 ", Tác giả: " + recipe.getUserName() +
                                 ", Số lượt thích: " + recipe.getLikesCount() +
-                                ", Số bình luận: " + recipe.getComments().size());
+                                ", Số bình luận: " + 5);
                         if (recipe.getMediaUrls() != null && !recipe.getMediaUrls().isEmpty()) {
                             Log.d("HomePageActivity", "Media URL đầu tiên: " + recipe.getMediaUrls().get(0));
                         } else {
@@ -157,7 +141,7 @@ public class HomePageActivity extends AppCompatActivity implements PostAdapter.O
                     : null;
             Post post = new Post(recipe.getId().toString(), recipe.getTitle(), recipe.getUserName(),
                     recipe.getLikesCount(),
-                    recipe.getComments().size(), mediaUrl);
+                    5, mediaUrl);
             postList.add(post);
             Log.d("HomePageActivity", "Đã thêm post: " + post.getRecipeName() +
                     ", Tác giả: " + post.getChefName() +
@@ -165,5 +149,10 @@ public class HomePageActivity extends AppCompatActivity implements PostAdapter.O
         }
         Log.d("HomePageActivity", "Tổng số post sau khi cập nhật: " + postList.size());
         postAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPostClick(String recipeId) {
+
     }
 }

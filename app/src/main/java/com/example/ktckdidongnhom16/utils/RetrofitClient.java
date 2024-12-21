@@ -2,6 +2,8 @@ package com.example.ktckdidongnhom16.utils;
 
 import android.util.Log;
 
+import com.example.ktckdidongnhom16.apis.ApiService;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -11,10 +13,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String BASE_URL = "https://app-chia-se-cong-thuc.azurewebsites.net/";
+    private static final String BASE_URL = "https://satyr-grown-dassie.ngrok-free.app";
     private static RetrofitClient instance;
     private Retrofit retrofit;
-//    private ApiService apiService;
+    private ApiService apiService;
 
     private RetrofitClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
@@ -40,7 +42,7 @@ public class RetrofitClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-//        apiService = retrofit.create(ApiService.class);
+        apiService = retrofit.create(ApiService.class);
     }
 
     public static synchronized RetrofitClient getInstance() {
@@ -50,7 +52,7 @@ public class RetrofitClient {
         return instance;
     }
 
-//    public ApiService getApiService() {
-//        return apiService;
-//    }
+    public ApiService getApiService() {
+        return apiService;
+    }
 }
