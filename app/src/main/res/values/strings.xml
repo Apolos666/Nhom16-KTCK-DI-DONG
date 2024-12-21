@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">KTCKDIDONGNHOM16</string>
+    <string name="home_logo_text">Cookbook</string>
+    <string name="search_recipes">Tìm kiếm công thức</string>
 </resources>
